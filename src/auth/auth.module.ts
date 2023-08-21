@@ -11,7 +11,7 @@ import { jwtConstants } from './constants';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '7d' },
     }),
   ],
   controllers: [AuthController],
@@ -19,3 +19,7 @@ import { jwtConstants } from './constants';
   exports: [AuthService],
 })
 export class AuthModule {}
+
+/*
+TODO: Refactor this one if requires more secure authentication
+*/

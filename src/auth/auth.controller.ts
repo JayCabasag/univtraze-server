@@ -30,10 +30,14 @@ export class AuthController {
   @Post('signup')
   @UsePipes(new SignUpValidation(signUpSchema))
   signUp(@Body() signUpDto: SignUpDto) {
-    return this.authService.singUp(
+    return this.authService.signUp(
       signUpDto.email,
       signUpDto.password,
       signUpDto.type,
     );
   }
 }
+
+/*
+TODO: Refactor this one if requires more secure authentication
+*/

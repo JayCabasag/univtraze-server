@@ -8,15 +8,15 @@ export class UsersService {
       userId: 1,
       email: 'jaycabasag@gmail.com',
       verified: false,
-      type: 'user',
-      password: 'password',
+      type: 'student',
+      password: '$2b$10$SFUuiYsS9Qd1nUFAs2SZfOdLU5f95wuWsWnhI7rQDulWCbW11nD7O',
     },
     {
       userId: 2,
       email: 'jay@gmail.com',
       verified: false,
-      type: 'admin',
-      password: 'password',
+      type: 'professor',
+      password: '$2b$10$SFUuiYsS9Qd1nUFAs2SZfOdLU5f95wuWsWnhI7rQDulWCbW11nD7O',
     },
   ];
 
