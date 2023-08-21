@@ -4,6 +4,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Request,
   UsePipes,
 } from '@nestjs/common';
 import { SignInValidation } from './validation/sign-in.validation';
@@ -11,11 +12,13 @@ import { SignInDto, signInSchema } from './dto/sign-in.dto';
 import { AuthService } from './auth.service';
 import { SignUpValidation } from './validation/sign-up.validation';
 import { SignUpDto, signUpSchema } from './dto/sign-up.dto';
+import { Public } from './auth.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('signin')
   @UsePipes(new SignInValidation(signInSchema))
@@ -26,6 +29,8 @@ export class AuthController {
       signInDto.type,
     );
   }
+
+  @Public()
   @HttpCode(HttpStatus.CREATED)
   @Post('signup')
   @UsePipes(new SignUpValidation(signUpSchema))
@@ -35,6 +40,12 @@ export class AuthController {
       signUpDto.password,
       signUpDto.type,
     );
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('verify')
+  verify(@Request() req) {
+    return req['user'];
   }
 }
 
