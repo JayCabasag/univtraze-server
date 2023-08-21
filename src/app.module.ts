@@ -4,10 +4,18 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entity/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
+import { RolesModule } from './roles/roles.module';
+import { AdminsModule } from './admins/admins.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { RoomsModule } from './rooms/rooms.module';
+import { ClinicUsersModule } from './clinic-users/clinic-users.module';
+import { ProfilesModule } from './profiles/profiles.module';
+import { User } from './users/entities/user.entity';
+import { Profile } from './profiles/entities/profile.entity';
+import { VaccinationsModule } from './vaccinations/vaccinations.module';
 
 @Module({
   imports: [
@@ -24,9 +32,16 @@ import { AuthGuard } from './auth/auth.guard';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_USERNAME,
-      entities: [User],
+      entities: [User, Profile],
       synchronize: true,
     }),
+    RolesModule,
+    AdminsModule,
+    NotificationsModule,
+    RoomsModule,
+    ClinicUsersModule,
+    ProfilesModule,
+    VaccinationsModule,
   ],
   controllers: [AppController],
   providers: [

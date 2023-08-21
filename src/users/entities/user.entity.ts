@@ -1,15 +1,22 @@
+import { Profile } from 'src/profiles/entities/profile.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @OneToOne(() => Profile, (profile) => profile.user) // Specify the inverse side
+  @JoinColumn({ name: 'profile_id' }) // Add a foreign key column to represent the relationship
+  profile: Profile;
 
   @Column()
   email: string;
