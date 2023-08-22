@@ -1,4 +1,5 @@
 import * as Joi from 'joi';
+import { UserType } from 'src/users/entities/user.entity';
 
 export const signUpSchema = Joi.object({
   email: Joi.string()
@@ -10,6 +11,6 @@ export const signUpSchema = Joi.object({
 
 export class SignUpDto {
   email: string;
-  type: string;
+  type: UserType;
   password: string;
 }
