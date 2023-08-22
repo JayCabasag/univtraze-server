@@ -11,6 +11,15 @@ import {
   OneToMany,
 } from 'typeorm';
 
+export enum UserType {
+  ADMIN = 'admin',
+  STUDENT = 'student',
+  VISITOR = 'visitor',
+  EMPLOYEE = 'employee',
+  CLINIC = 'clinic',
+  GHOST = 'ghost',
+}
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
@@ -22,8 +31,12 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
-  type: string;
+  @Column({
+    type: 'enum',
+    enum: UserType,
+    default: UserType.GHOST,
+  })
+  type: UserType;
 
   @Column({ default: false })
   verified: boolean;
@@ -34,10 +47,10 @@ export class User {
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
 
-  @OneToMany(() => Temperature, (temperature) => temperature.user) // Specify the inverse side
-  temperatures: Temperature[]; // This property will hold an array of associated temperatures
+  @OneToMany(() => Temperature, (temperature) => temperature.user)
+  temperatures: Temperature[];
 
-  @OneToOne(() => Profile, (profile) => profile.user) // Specify the inverse side
-  @JoinColumn({ name: 'profile_id' }) // Add a foreign key column to represent the relationship
+  @OneToOne(() => Profile, (profile) => profile.user)
+  @JoinColumn({ name: 'profile_id' })
   profile: Profile;
 }

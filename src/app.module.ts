@@ -12,12 +12,12 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { User } from './users/entities/user.entity';
-import { Profile } from './profiles/entities/profile.entity';
 import { VaccinationsModule } from './vaccinations/vaccinations.module';
 import { TemperaturesModule } from './temperatures/temperatures.module';
 import { VisitedRoomsModule } from './visited-rooms/visited-rooms.module';
 import { Room } from './rooms/entities/room.entity';
 import { Temperature } from './temperatures/entities/temperature.entity';
+import { Profile } from './profiles/entities/profile.entity';
 
 @Module({
   imports: [
