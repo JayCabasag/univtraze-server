@@ -22,13 +22,13 @@ export class Profile {
   profile_photo: string;
 
   @Column()
-  firstname: string;
+  first_name: string;
 
   @Column()
-  middlename: string;
+  middle_name: string;
 
   @Column()
-  lastname: string;
+  last_name: string;
 
   @Column()
   suffix: string;

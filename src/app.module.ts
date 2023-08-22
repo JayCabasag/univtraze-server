@@ -19,6 +19,7 @@ import { Room } from './rooms/entities/room.entity';
 import { Temperature } from './temperatures/entities/temperature.entity';
 import { Profile } from './profiles/entities/profile.entity';
 import { Vaccination } from './vaccinations/entities/vaccination.entity';
+import { DocumentsModule } from './documents/documents.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { Vaccination } from './vaccinations/entities/vaccination.entity';
     VaccinationsModule,
     TemperaturesModule,
     VisitedRoomsModule,
+    DocumentsModule,
   ],
   controllers: [AppController],
   providers: [
