@@ -1,4 +1,5 @@
 import { Profile } from 'src/profiles/entities/profile.entity';
+import { Temperature } from 'src/temperatures/entities/temperature.entity';
 import {
   Entity,
   Column,
@@ -7,16 +8,13 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @OneToOne(() => Profile, (profile) => profile.user) // Specify the inverse side
-  @JoinColumn({ name: 'profile_id' }) // Add a foreign key column to represent the relationship
-  profile: Profile;
 
   @Column()
   email: string;
@@ -35,4 +33,11 @@ export class User {
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
+
+  @OneToMany(() => Temperature, (temperature) => temperature.user) // Specify the inverse side
+  temperatures: Temperature[]; // This property will hold an array of associated temperatures
+
+  @OneToOne(() => Profile, (profile) => profile.user) // Specify the inverse side
+  @JoinColumn({ name: 'profile_id' }) // Add a foreign key column to represent the relationship
+  profile: Profile;
 }

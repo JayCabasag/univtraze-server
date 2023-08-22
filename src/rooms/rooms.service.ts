@@ -1,9 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Room } from './entities/room.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class RoomsService {
+  constructor(
+    @InjectRepository(Room) private roomRepository: Repository<Room>,
+  ) {}
   create(createRoomDto: CreateRoomDto) {
     return 'This action adds a new room';
   }
@@ -12,8 +18,8 @@ export class RoomsService {
     return `This action returns all rooms`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} room`;
+  findOneById(id: number) {
+    return this.roomRepository.findOneBy({ id });
   }
 
   update(id: number, updateRoomDto: UpdateRoomDto) {
