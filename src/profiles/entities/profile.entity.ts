@@ -1,4 +1,5 @@
 import { User } from 'src/users/entities/user.entity';
+import { Vaccination } from 'src/vaccinations/entities/vaccination.entity';
 import {
   Entity,
   Column,
@@ -6,6 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('profiles')
@@ -45,6 +47,9 @@ export class Profile {
 
   @Column()
   gender: string;
+
+  @OneToMany(() => Vaccination, (vaccination) => vaccination.profile)
+  vaccinations: Vaccination[];
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

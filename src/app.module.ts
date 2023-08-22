@@ -18,6 +18,7 @@ import { VisitedRoomsModule } from './visited-rooms/visited-rooms.module';
 import { Room } from './rooms/entities/room.entity';
 import { Temperature } from './temperatures/entities/temperature.entity';
 import { Profile } from './profiles/entities/profile.entity';
+import { Vaccination } from './vaccinations/entities/vaccination.entity';
 
 @Module({
   imports: [
@@ -34,7 +35,7 @@ import { Profile } from './profiles/entities/profile.entity';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_USERNAME,
-      entities: [User, Profile, Room, Temperature],
+      entities: [User, Profile, Room, Temperature, Vaccination],
       synchronize: true,
     }),
     RolesModule,
