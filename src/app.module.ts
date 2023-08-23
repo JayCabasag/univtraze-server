@@ -20,6 +20,9 @@ import { Temperature } from './temperatures/entities/temperature.entity';
 import { Profile } from './profiles/entities/profile.entity';
 import { Vaccination } from './vaccinations/entities/vaccination.entity';
 import { DocumentsModule } from './documents/documents.module';
+import { Document } from './documents/entities/document.entity';
+import { ReportsModule } from './reports/reports.module';
+import { Report } from './reports/entities/report.entity';
 
 @Module({
   imports: [
@@ -36,7 +39,15 @@ import { DocumentsModule } from './documents/documents.module';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_USERNAME,
-      entities: [User, Profile, Room, Temperature, Vaccination],
+      entities: [
+        User,
+        Profile,
+        Room,
+        Temperature,
+        Vaccination,
+        Document,
+        Report,
+      ],
       synchronize: true,
     }),
     RolesModule,
@@ -47,6 +58,7 @@ import { DocumentsModule } from './documents/documents.module';
     TemperaturesModule,
     VisitedRoomsModule,
     DocumentsModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [
