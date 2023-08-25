@@ -23,6 +23,7 @@ import { DocumentsModule } from './documents/documents.module';
 import { Document } from './documents/entities/document.entity';
 import { ReportsModule } from './reports/reports.module';
 import { Report } from './reports/entities/report.entity';
+import { Notification } from './notifications/entities/notification.entity';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { Report } from './reports/entities/report.entity';
         Vaccination,
         Document,
         Report,
+        Notification,
       ],
       synchronize: true,
     }),

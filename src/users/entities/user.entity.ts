@@ -1,3 +1,4 @@
+import { Notification } from 'src/notifications/entities/notification.entity';
 import { Profile } from 'src/profiles/entities/profile.entity';
 import { Temperature } from 'src/temperatures/entities/temperature.entity';
 import {
@@ -51,6 +52,9 @@ export class User {
 
   @OneToMany(() => Temperature, (temperature) => temperature.user)
   temperatures: Temperature[];
+
+  @OneToMany(() => Notification, (notification) => notification.user)
+  notifications: Notification[];
 
   @OneToOne(() => Profile, (profile) => profile.user)
   @JoinColumn({ name: 'profile_id' })
