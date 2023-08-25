@@ -10,7 +10,6 @@ import {
   OneToOne,
   JoinColumn,
   OneToMany,
-  Unique,
 } from 'typeorm';
 
 export enum UserType {
@@ -23,7 +22,6 @@ export enum UserType {
 }
 
 @Entity('users')
-@Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
