@@ -24,6 +24,7 @@ import { Document } from './documents/entities/document.entity';
 import { ReportsModule } from './reports/reports.module';
 import { Report } from './reports/entities/report.entity';
 import { Notification } from './notifications/entities/notification.entity';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { Notification } from './notifications/entities/notification.entity';
     VisitedRoomsModule,
     DocumentsModule,
     ReportsModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [
