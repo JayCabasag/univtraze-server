@@ -16,6 +16,7 @@ export class ProfilesService {
 
   async create(createProfileDto: CreateProfileDto) {
     const user = await this.userService.findById(createProfileDto.userId);
+    const { password, ...otherUserProperties } = user;
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -31,13 +32,13 @@ export class ProfilesService {
       date_of_birth: createProfileDto.dateOfBirth,
       phone_number: createProfileDto.phoneNumber,
     };
-    await this.profileRepository.save(profile);
-    const newUser = await this.userService.save({
+    await this.userService.save({
       ...user,
       verified: true,
       profile,
     });
-    return { profile, user: newUser };
+    const newProfile = await this.profileRepository.save(profile);
+    return { ...newProfile, user: { ...otherUserProperties, verified: true } };
   }
 
   findAll() {
