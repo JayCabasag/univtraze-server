@@ -1,11 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Profile } from './entities/profile.entity';
+import { Repository } from 'typeorm';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class ProfilesService {
-  create(createProfileDto: CreateProfileDto) {
-    return 'This action adds a new profile';
+  constructor(
+    @InjectRepository(Profile)
+    private profileRepository: Repository<Profile>,
+    private userService: UsersService,
+  ) {}
+
+  async create(createProfileDto: CreateProfileDto) {
+    const user = await this.userService.findById(createProfileDto.userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    const profile = {
+      user: user,
+      first_name: createProfileDto.firstName,
+      middle_name: createProfileDto.middleName,
+      last_name: createProfileDto.lastName,
+      suffix: createProfileDto.suffix,
+      gender: createProfileDto.gender,
+      address: createProfileDto.address,
+      phoneNumber: createProfileDto.phoneNumber,
+      date_of_birth: createProfileDto.dateOfBirth,
+      phone_number: createProfileDto.phoneNumber,
+    };
+    await this.userService.save({ ...user, profile });
+    await this.profileRepository.save(profile);
+    return await profile;
   }
 
   findAll() {

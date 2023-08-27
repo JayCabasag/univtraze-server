@@ -8,8 +8,10 @@ import {
   UpdateDateColumn,
   OneToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Document } from 'src/documents/entities/document.entity';
+import { DEFAULT_PROFILE } from '../constants';
 
 @Entity('profiles')
 export class Profile {
@@ -17,9 +19,10 @@ export class Profile {
   id: number;
 
   @OneToOne(() => User, (user) => user.profile)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Column()
+  @Column({ default: DEFAULT_PROFILE })
   profile_photo: string;
 
   @Column()
@@ -42,9 +45,6 @@ export class Profile {
 
   @Column()
   phone_number: string;
-
-  @Column()
-  email: string;
 
   @Column()
   gender: string;

@@ -33,4 +33,8 @@ export class UsersService {
       password,
     });
   }
+
+  async save(user): Promise<User | undefined> {
+    return await this.usersRepository.save(user);
+  }
 }

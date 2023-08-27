@@ -6,16 +6,22 @@ import {
   Patch,
   Param,
   Delete,
+  UsePipes,
 } from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
-import { CreateProfileDto } from './dto/create-profile.dto';
+import {
+  CreateProfileDto,
+  CreateProfileSchema,
+} from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { CreateProfileValidation } from './validation/create-profile.validation';
 
 @Controller('profiles')
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 
   @Post()
+  @UsePipes(new CreateProfileValidation(CreateProfileSchema))
   create(@Body() createProfileDto: CreateProfileDto) {
     return this.profilesService.create(createProfileDto);
   }
