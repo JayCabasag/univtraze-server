@@ -31,9 +31,13 @@ export class ProfilesService {
       date_of_birth: createProfileDto.dateOfBirth,
       phone_number: createProfileDto.phoneNumber,
     };
-    await this.userService.save({ ...user, profile });
     await this.profileRepository.save(profile);
-    return await profile;
+    const newUser = await this.userService.save({
+      ...user,
+      verified: true,
+      profile,
+    });
+    return { profile, user: newUser };
   }
 
   findAll() {
