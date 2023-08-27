@@ -33,6 +33,7 @@ export class AuthService {
       email: user.email,
       type: user.type,
       verified: user.verified,
+      profile: user.profile,
     };
     return {
       user: payload,
@@ -61,6 +62,7 @@ export class AuthService {
       email: createdUser.email,
       type: createdUser.type,
       verified: createdUser.verified,
+      profile: user.profile,
     };
     return {
       user: payload,
