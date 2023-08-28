@@ -18,7 +18,6 @@ export class TemperaturesService {
 
   async create(createTemperatureDto: CreateTemperatureDto) {
     const user = await this.usersService.findById(createTemperatureDto.userId);
-    const { password, ...otherProperties } = user;
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -30,7 +29,7 @@ export class TemperaturesService {
     }
     return this.temperatureRepository.save({
       room,
-      user: otherProperties,
+      user: user,
       temperature: createTemperatureDto.temperature,
       unit: createTemperatureDto.unit,
     });

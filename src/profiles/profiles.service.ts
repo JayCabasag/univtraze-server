@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  forwardRef,
+} from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,12 +16,12 @@ export class ProfilesService {
   constructor(
     @InjectRepository(Profile)
     private profileRepository: Repository<Profile>,
+    @Inject(forwardRef(() => UsersService))
     private userService: UsersService,
   ) {}
 
   async create(createProfileDto: CreateProfileDto) {
     const user = await this.userService.findById(createProfileDto.userId);
-    const { password, ...otherUserProperties } = user;
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -38,7 +43,7 @@ export class ProfilesService {
       profile,
     });
     const newProfile = await this.profileRepository.save(profile);
-    return { ...newProfile, user: { ...otherUserProperties, verified: true } };
+    return { ...newProfile, user: { ...user, verified: true } };
   }
 
   findAll() {

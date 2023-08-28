@@ -1,7 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  forwardRef,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User, UserType } from './entities/user.entity';
+import { ProfilesService } from 'src/profiles/profiles.service';
 
 @Injectable()
 export class UsersService {
@@ -19,7 +25,8 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    return user;
+    const { password, ...otherUserAttributes } = user;
+    return otherUserAttributes;
   }
 
   async findAll(): Promise<User[]> {
