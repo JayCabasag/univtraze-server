@@ -18,9 +18,6 @@ export class TemperaturesService {
 
   async create(createTemperatureDto: CreateTemperatureDto) {
     const user = await this.usersService.findById(createTemperatureDto.userId);
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
     const room = await this.roomsService.findOneById(
       createTemperatureDto.roomId,
     );

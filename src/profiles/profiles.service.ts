@@ -22,9 +22,6 @@ export class ProfilesService {
 
   async create(createProfileDto: CreateProfileDto) {
     const user = await this.userService.findById(createProfileDto.userId);
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
     const profile = {
       user: user,
       first_name: createProfileDto.firstName,
