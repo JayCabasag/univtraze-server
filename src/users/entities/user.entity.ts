@@ -1,5 +1,6 @@
 import { Notification } from 'src/notifications/entities/notification.entity';
 import { Profile } from 'src/profiles/entities/profile.entity';
+import { Report } from 'src/reports/entities/report.entity';
 import { Temperature } from 'src/temperatures/entities/temperature.entity';
 import {
   Entity,
@@ -53,6 +54,9 @@ export class User {
 
   @OneToMany(() => Notification, (notification) => notification.user)
   notifications: Notification[];
+
+  @OneToMany(() => Report, (report) => report.document)
+  reports: Report[];
 
   @OneToOne(() => Profile, (profile) => profile.user, {
     cascade: true,
