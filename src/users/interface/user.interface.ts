@@ -5,3 +5,12 @@ export type User = {
   type: string;
   password: string;
 };
+
+export enum UserType {
+  ADMIN = 'admin',
+  STUDENT = 'student',
+  VISITOR = 'visitor',
+  EMPLOYEE = 'employee',
+  CLINIC = 'clinic',
+  GHOST = 'ghost',
+}

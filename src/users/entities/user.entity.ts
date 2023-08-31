@@ -13,15 +13,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-
-export enum UserType {
-  ADMIN = 'admin',
-  STUDENT = 'student',
-  VISITOR = 'visitor',
-  EMPLOYEE = 'employee',
-  CLINIC = 'clinic',
-  GHOST = 'ghost',
-}
+import { UserType } from '../interface/user.interface';
 
 @Entity('users')
 export class User {

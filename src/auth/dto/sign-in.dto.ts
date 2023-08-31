@@ -1,5 +1,5 @@
 import * as Joi from 'joi';
-import { UserType } from 'src/users/entities/user.entity';
+import { UserType } from 'src/users/interface/user.interface';
 
 export const signInSchema = Joi.object({
   email: Joi.string()
