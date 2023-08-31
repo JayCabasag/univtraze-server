@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,8 +18,12 @@ export class RoomsService {
     return `This action returns all rooms`;
   }
 
-  findOneById(id: number) {
-    return this.roomRepository.findOneBy({ id });
+  async findById(id: number) {
+    const room = await this.roomRepository.findOneBy({ id });
+    if (!room) {
+      throw new NotFoundException('Room not found');
+    }
+    return room;
   }
 
   update(id: number, updateRoomDto: UpdateRoomDto) {

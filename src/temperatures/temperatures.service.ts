@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateTemperatureDto } from './dto/create-temperature.dto';
 import { UpdateTemperatureDto } from './dto/update-temperature.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,12 +18,7 @@ export class TemperaturesService {
 
   async create(createTemperatureDto: CreateTemperatureDto) {
     const user = await this.usersService.findById(createTemperatureDto.userId);
-    const room = await this.roomsService.findOneById(
-      createTemperatureDto.roomId,
-    );
-    if (!room) {
-      throw new NotFoundException('Room not found');
-    }
+    const room = await this.roomsService.findById(createTemperatureDto.roomId);
     return this.temperatureRepository.save({
       room,
       user: user,
