@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UsePipes,
+  Request,
 } from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
 import {
@@ -22,8 +23,9 @@ export class ProfilesController {
 
   @Post()
   @UsePipes(new CreateProfileValidation(CreateProfileSchema))
-  create(@Body() createProfileDto: CreateProfileDto) {
-    return this.profilesService.create(createProfileDto);
+  create(@Request() request, @Body() createProfileDto: CreateProfileDto) {
+    const userId = request.user.sub;
+    return this.profilesService.create(+userId, createProfileDto);
   }
 
   @Get()

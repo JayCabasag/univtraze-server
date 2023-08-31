@@ -18,8 +18,8 @@ export class ProfilesService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createProfileDto: CreateProfileDto) {
-    const user = await this.userService.findById(createProfileDto.userId);
+  async create(userId: number, createProfileDto: CreateProfileDto) {
+    const user = await this.userService.findById(userId);
     const profile = {
       user: user,
       first_name: createProfileDto.firstName,
@@ -60,7 +60,6 @@ export class ProfilesService {
       date_of_birth: updateProfileDto.dateOfBirth,
       phone_number: updateProfileDto.phoneNumber,
     };
-
     const updatedProfile = await this.profileRepository.save(profileToSave);
     const user = await this.userRepository.findOne({
       where: { profile: updatedProfile },

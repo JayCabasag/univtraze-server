@@ -1,3 +1,3 @@
 export class VisitedRoom {
-    roomId: number
+  roomId: number;
 }

@@ -4,8 +4,8 @@ import { UpdateVisitedRoomDto } from './dto/update-visited-room.dto';
 
 @Injectable()
 export class VisitedRoomsService {
-  create(createVisitedRoomDto: CreateVisitedRoomDto) {
-    return 'This action adds a new visitedRoom';
+  create(userId: number, createVisitedRoomDto: CreateVisitedRoomDto) {
+    return 'This action adds a new visitedRoom' + userId;
   }
 
   findAll() {

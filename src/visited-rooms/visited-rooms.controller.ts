@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
 } from '@nestjs/common';
 import { VisitedRoomsService } from './visited-rooms.service';
 import { CreateVisitedRoomDto } from './dto/create-visited-room.dto';
@@ -16,8 +17,12 @@ export class VisitedRoomsController {
   constructor(private readonly visitedRoomsService: VisitedRoomsService) {}
 
   @Post()
-  create(@Body() createVisitedRoomDto: CreateVisitedRoomDto) {
-    return this.visitedRoomsService.create(createVisitedRoomDto);
+  create(
+    @Request() request,
+    @Body() createVisitedRoomDto: CreateVisitedRoomDto,
+  ) {
+    const userId = request.user.sub;
+    return this.visitedRoomsService.create(userId, createVisitedRoomDto);
   }
 
   @Get()
