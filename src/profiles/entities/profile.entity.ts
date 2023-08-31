@@ -49,15 +49,15 @@ export class Profile {
   @Column()
   gender: string;
 
-  @OneToMany(() => Vaccination, (vaccination) => vaccination.profile)
-  vaccinations: Vaccination[];
-
-  @OneToOne(() => Document, (document) => document.profile)
-  document: Document;
-
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
+
+  @OneToMany(() => Vaccination, (vaccination) => vaccination.profile)
+  vaccinations: Vaccination[];
+
+  @OneToOne(() => Document, (document) => document.profile)
+  document: Document;
 }

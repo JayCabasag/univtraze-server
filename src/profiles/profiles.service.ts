@@ -1,15 +1,11 @@
-import {
-  Inject,
-  Injectable,
-  NotFoundException,
-  forwardRef,
-} from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Profile } from './entities/profile.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class ProfilesService {
@@ -18,6 +14,8 @@ export class ProfilesService {
     private profileRepository: Repository<Profile>,
     @Inject(forwardRef(() => UsersService))
     private userService: UsersService,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async create(createProfileDto: CreateProfileDto) {
@@ -30,7 +28,6 @@ export class ProfilesService {
       suffix: createProfileDto.suffix,
       gender: createProfileDto.gender,
       address: createProfileDto.address,
-      phoneNumber: createProfileDto.phoneNumber,
       date_of_birth: createProfileDto.dateOfBirth,
       phone_number: createProfileDto.phoneNumber,
     };
@@ -51,8 +48,25 @@ export class ProfilesService {
     return `This action returns a #${id} profile`;
   }
 
-  update(id: number, updateProfileDto: UpdateProfileDto) {
-    return `This action updates a #${id} profile`;
+  async update(id: number, updateProfileDto: UpdateProfileDto) {
+    const profileToSave = {
+      id,
+      first_name: updateProfileDto.firstName,
+      middle_name: updateProfileDto.middleName,
+      last_name: updateProfileDto.lastName,
+      suffix: updateProfileDto.suffix,
+      gender: updateProfileDto.gender,
+      address: updateProfileDto.address,
+      date_of_birth: updateProfileDto.dateOfBirth,
+      phone_number: updateProfileDto.phoneNumber,
+    };
+
+    const updatedProfile = await this.profileRepository.save(profileToSave);
+    const user = await this.userRepository.findOne({
+      where: { profile: updatedProfile },
+    });
+    const { password, profile, ...otherAttributes } = user;
+    return { ...updatedProfile, user: otherAttributes };
   }
 
   remove(id: number) {
