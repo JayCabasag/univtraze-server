@@ -22,6 +22,12 @@ export class Room {
   @Column()
   building_name: string;
 
+  @Column()
+  room_name: string;
+
+  @Column()
+  room_number: string;
+
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
