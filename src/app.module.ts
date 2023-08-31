@@ -25,6 +25,7 @@ import { ReportsModule } from './reports/reports.module';
 import { Report } from './reports/entities/report.entity';
 import { Notification } from './notifications/entities/notification.entity';
 import { EmailModule } from './email/email.module';
+import { VisitedRoom } from './visited-rooms/entities/visited-room.entity';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { EmailModule } from './email/email.module';
         Document,
         Report,
         Notification,
+        VisitedRoom,
       ],
       synchronize: true,
     }),

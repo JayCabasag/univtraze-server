@@ -2,6 +2,7 @@ import { Notification } from 'src/notifications/entities/notification.entity';
 import { Profile } from 'src/profiles/entities/profile.entity';
 import { Report } from 'src/reports/entities/report.entity';
 import { Temperature } from 'src/temperatures/entities/temperature.entity';
+import { VisitedRoom } from 'src/visited-rooms/entities/visited-room.entity';
 import {
   Entity,
   Column,
@@ -65,4 +66,8 @@ export class User {
   })
   @JoinColumn({ name: 'profile_id' })
   profile: Profile;
+
+  @OneToMany(() => VisitedRoom, (visitedRoom) => visitedRoom.user)
+  @JoinColumn({ name: 'visited_rooms' })
+  visited_rooms: VisitedRoom[];
 }

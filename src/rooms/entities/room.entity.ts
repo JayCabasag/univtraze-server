@@ -3,10 +3,13 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
+  OneToOne,
   UpdateDateColumn,
   CreateDateColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Temperature } from 'src/temperatures/entities/temperature.entity';
+import { VisitedRoom } from 'src/visited-rooms/entities/visited-room.entity';
 
 @Entity('rooms')
 export class Room {
@@ -27,4 +30,7 @@ export class Room {
 
   @OneToMany(() => Temperature, (temperature) => temperature.room) // Specify the inverse side
   temperatures: Temperature[]; // This property will hold an array of associated temperatures
+
+  @OneToMany(() => VisitedRoom, (visitedRoom) => visitedRoom.room)
+  visited_rooms: VisitedRoom[];
 }
