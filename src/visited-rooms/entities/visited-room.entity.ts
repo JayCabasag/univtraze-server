@@ -1,1 +1,3 @@
-export class VisitedRoom {}
+export class VisitedRoom {
+    roomId: number
+}
