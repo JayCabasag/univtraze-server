@@ -7,16 +7,22 @@ import {
   Param,
   Delete,
   Request,
+  UsePipes,
 } from '@nestjs/common';
 import { VisitedRoomsService } from './visited-rooms.service';
-import { CreateVisitedRoomDto } from './dto/create-visited-room.dto';
+import {
+  CreateVisitedRoomDto,
+  createVisitedRoomSchema,
+} from './dto/create-visited-room.dto';
 import { UpdateVisitedRoomDto } from './dto/update-visited-room.dto';
+import { CreateVisitedRoomValidation } from './validators/create-visited-room.validator';
 
 @Controller('visited-rooms')
 export class VisitedRoomsController {
   constructor(private readonly visitedRoomsService: VisitedRoomsService) {}
 
   @Post()
+  @UsePipes(new CreateVisitedRoomValidation(createVisitedRoomSchema))
   create(
     @Request() request,
     @Body() createVisitedRoomDto: CreateVisitedRoomDto,
