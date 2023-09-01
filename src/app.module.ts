@@ -26,6 +26,7 @@ import { Report } from './reports/entities/report.entity';
 import { Notification } from './notifications/entities/notification.entity';
 import { EmailModule } from './email/email.module';
 import { VisitedRoom } from './visited-rooms/entities/visited-room.entity';
+import { RolesGuard } from './roles/roles.guard';
 
 @Module({
   imports: [
@@ -72,6 +73,10 @@ import { VisitedRoom } from './visited-rooms/entities/visited-room.entity';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })
