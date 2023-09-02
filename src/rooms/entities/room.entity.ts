@@ -3,10 +3,8 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
-  OneToOne,
   UpdateDateColumn,
   CreateDateColumn,
-  ManyToOne,
 } from 'typeorm';
 import { Temperature } from 'src/temperatures/entities/temperature.entity';
 import { VisitedRoom } from 'src/visited-rooms/entities/visited-room.entity';

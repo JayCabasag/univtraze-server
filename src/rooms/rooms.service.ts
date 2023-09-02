@@ -16,9 +16,6 @@ export class RoomsService {
   ) {}
   async create(createRoomDto: CreateRoomDto) {
     const room = await this.roomRepository.create(createRoomDto);
-    if (!room) {
-      throw new InternalServerErrorException('Internal server erro');
-    }
     return room;
   }
 
