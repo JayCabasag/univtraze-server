@@ -40,8 +40,18 @@ export class RoomsService {
     return room;
   }
 
-  update(id: number, updateRoomDto: UpdateRoomDto) {
-    return `This action updates a #${id} room`;
+  async update(id: number, updateRoomDto: UpdateRoomDto) {
+    const existingRoom = await this.roomRepository.findOneBy(updateRoomDto);
+    if (existingRoom) {
+      throw new ConflictException('This room already exists');
+    }
+    const room = await this.findById(id);
+    const updatedRoom: Room = {
+      ...room,
+      ...updateRoomDto,
+    };
+    const result = await this.roomRepository.save(updatedRoom);
+    return result;
   }
 
   remove(id: number) {
