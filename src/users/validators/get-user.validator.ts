@@ -1,7 +1,7 @@
 import { Injectable, PipeTransform, BadRequestException } from '@nestjs/common';
 
 @Injectable()
-export class GetUserValidation implements PipeTransform {
+export class UserIdValidation implements PipeTransform {
   transform(value: any) {
     const parsedValue = Number(value);
 
