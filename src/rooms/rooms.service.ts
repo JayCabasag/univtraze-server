@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,8 +14,12 @@ export class RoomsService {
   constructor(
     @InjectRepository(Room) private roomRepository: Repository<Room>,
   ) {}
-  create(createRoomDto: CreateRoomDto) {
-    return 'This action adds a new room';
+  async create(createRoomDto: CreateRoomDto) {
+    const room = await this.roomRepository.create(createRoomDto);
+    if (!room) {
+      throw new InternalServerErrorException('Internal server erro');
+    }
+    return room;
   }
 
   findAll() {
