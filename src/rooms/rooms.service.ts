@@ -17,18 +17,14 @@ export class RoomsService {
   ) {}
   async create(createRoomDto: CreateRoomDto) {
     const room = this.roomRepository.create(createRoomDto);
-
     const existingRoom = await this.roomRepository.findOneBy(createRoomDto);
-
     if (existingRoom) {
       throw new ConflictException('This room already exists');
     }
     const result = await this.roomRepository.save(room);
-
     if (!result) {
       throw new InternalServerErrorException('Internal Server error');
     }
-
     return result;
   }
 
