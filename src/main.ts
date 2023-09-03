@@ -8,11 +8,13 @@ const corsOptios = {
   credentials: true,
 };
 
+const port = process.env.PORT || 3000;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors(corsOptios);
   const globalPrefix = 'api/v1';
   app.setGlobalPrefix(globalPrefix);
-  await app.listen(3031);
+  await app.listen(port);
 }
 bootstrap();
