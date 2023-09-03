@@ -13,6 +13,6 @@ async function bootstrap() {
   app.enableCors(corsOptios);
   const globalPrefix = 'api/v1';
   app.setGlobalPrefix(globalPrefix);
-  await app.listen(3000);
+  await app.listen(3031);
 }
 bootstrap();
