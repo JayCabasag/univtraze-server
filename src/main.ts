@@ -2,9 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 const corsOptios = {
-  origin: ['*'],
+  origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: 'Content-Type, Accept, Authorization',
+  allowedHeaders: '*',
   credentials: true,
 };
 
